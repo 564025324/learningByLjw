@@ -1,4 +1,4 @@
-package com.lijingwen.log4jLearning;
+package com.lijingwen.log4j;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;

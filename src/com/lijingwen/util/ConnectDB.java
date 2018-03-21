@@ -16,8 +16,11 @@ public class ConnectDB {
 	public Connection getConnection() {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			conn = DriverManager.getConnection("jdbc:sqlserver://localhost",
-					"sa", "ljw+545464");
+
+			conn = DriverManager.getConnection("jdbc:sqlserver://localhost", "root", "root");
+			// Class.forName("com.mysql.jdbc.Driver");
+			// conn = DriverManager.getConnection("jdbc:mysql://localhost", "root",
+			// "root");
 			if (conn == null) {
 				System.out.println("数据库连接失败");
 			} else {
@@ -29,14 +32,19 @@ public class ConnectDB {
 		return conn;
 	}
 
+	public static void main(String[] args) {
+		ConnectDB testdb = new ConnectDB();
+		Connection connection = testdb.getConnection();
+		testdb.select();
+	}
+
 	/**
 	 * 插入
 	 */
-	public void insert() {
+	public void insert(String sql) {
 		System.out.println("-----------INSERT------------");
 		conn = getConnection();
 		if (conn != null) {
-			String sql = "use lijingwen ;insert into users(userid,username,mobile,status) values ('1','1','1','1')";
 			try {
 				Statement stm = conn.createStatement();
 				int result = stm.executeUpdate(sql);
@@ -47,6 +55,7 @@ public class ConnectDB {
 		}
 
 	}
+
 	/**
 	 * 插入
 	 */
@@ -54,13 +63,13 @@ public class ConnectDB {
 		System.out.println("-----------select------------");
 		conn = getConnection();
 		if (conn != null) {
-			String sql = "use lijingwen ;select * from users";
+			String sql = "use lijingwen ;select * from lmsp_qhib_sxf_log ";
 			try {
 				Statement stm = conn.createStatement();
 				ResultSet rs = stm.executeQuery(sql);
-				while(rs.next()){
-					String name = rs.getString(2);
-					System.out.println(name);
+				while (rs.next()) {
+					String FUNDNAME = rs.getString(5);
+					System.out.println(FUNDNAME);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
